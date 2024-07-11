@@ -1,0 +1,33 @@
+import { Steps } from "nextra-theme-docs";
+
+# OX_LIB INTEGRATION
+
+To integrate vzn-notify with ox_lib do steps below!
+
+<Steps>
+### Go to ox_lib/resource/interface/client/notify.lua
+
+### Find function called `lib.notify`
+
+### Replace this function with this code below
+
+```lua
+function lib.notify(data)
+    local sound = settings.notification_audio and data.sound
+    data.sound = nil
+
+    exports['vzn-notify']:oxLibNotification(data)
+
+    if not sound then return end
+
+    if sound.bank then lib.requestAudioBank(sound.bank) end
+
+    local soundId = GetSoundId()
+    PlaySoundFrontend(soundId, sound.name, sound.set, true)
+    ReleaseSoundId(soundId)
+
+    if sound.bank then ReleaseNamedScriptAudioBank(sound.bank) end
+end
+```
+
+</Steps>

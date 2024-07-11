@@ -1,0 +1,23 @@
+import { Steps } from "nextra-theme-docs";
+
+# ESX INTEGRATION
+
+To integrate vzn-notify with esx framework do steps below!
+
+<Steps>
+### Disable or remove `esx_notify` from your server
+After this step the script should automatically works, but if not do next steps!
+
+### Go to es_extended/client/functions.lua
+
+### Find function called `ESX.ShowNotification`
+
+### Replace this function with this code below
+
+```lua
+function ESX.ShowNotification(message, notifyType, length)
+    exports['vzn-scripts']:esxNotification(notifyType, length, message)
+end
+```
+
+</Steps>

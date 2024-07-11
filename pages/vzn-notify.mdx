@@ -1,0 +1,49 @@
+import { Steps } from "nextra-theme-docs";
+
+# VZN-NOTIFY
+
+Simple notifications with beutiful UI
+
+Link to PREVIEW
+
+Link to buy
+
+## Installation
+
+<Steps>
+### Download the newest version from [Keymaster](https://keymaster.fivem.net/asset-grants)
+
+### Config
+
+Configure it how do you want
+
+```lua
+Config = {}
+
+---@type boolean
+Config.ignoreDuplicates = true -- if the same notification will be duplicated it won't show
+
+---@type keyof Positions
+Config.defaultPosition = Positions['top-right'] -- positions.lua
+
+---@type 1 | 2 | 3 | 4
+Config.defaultDesignType = 3 -- design type of notification (next page)
+
+---@type string
+Config.defaultTitle = "Notification" -- default title of notification if it's nil
+
+---@type number in miliseconds
+Config.defaultDuration = 5000 -- default duration of notification if it's nil
+
+---@type boolean
+Config.debug = false -- all notification data will be printed in console
+```
+
+</Steps>
+
+## Compatibility
+
+-   [esx](https://github.com/esx-framework/esx_core)
+-   [ox_lib](https://github.com/overextended/ox_lib)
+-   [qb-core](https://github.com/qbcore-framework/qb-core)
+-   Or you can integrate this script from everything if you can
