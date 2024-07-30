@@ -89,6 +89,12 @@ const config: DocsThemeConfig = {
     footer: {
         text: "VZN Scripts",
     },
+    primaryHue: 203,
+    primarySaturation: 100,
+    toc: {
+        backToTop: true,
+    },
+    navigation: true
 };
 
 export default config;

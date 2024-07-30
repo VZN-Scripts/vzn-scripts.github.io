@@ -11,7 +11,7 @@ To integrate vzn-notify with qb-core do steps below!
 
 ### Replace this function with this code below
 
-```lua
+```lua copy filename="qb-core/client/functions.lua"
 function QBCore.Functions.Notify(text, texttype, length, icon)
     exports['vzn-notify']:qbCoreNotification(text, texttype, length)
 end
