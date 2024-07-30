@@ -1,6 +1,7 @@
 import React from "react";
 import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 import { useRouter } from "next/router";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const config: DocsThemeConfig = {
     head: () => {
@@ -11,6 +12,7 @@ const config: DocsThemeConfig = {
 
         return (
             <>
+                <GoogleAnalytics gaId="G-XV58K6R2PX" />
                 <link rel="icon" type="image/png" href="/logo.png" />
 
                 <meta httpEquiv="Content-Language" content="en" />
