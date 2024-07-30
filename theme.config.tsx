@@ -2,6 +2,7 @@ import React from "react";
 import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 import { useRouter } from "next/router";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import Script from "next/script";
 
 const config: DocsThemeConfig = {
     head: () => {
@@ -10,9 +11,23 @@ const config: DocsThemeConfig = {
         const defaultDescription = "Documentation for VZN Scripts assets";
         const url = `https://docs.vzn-scripts.com/${asPath}`;
 
+        const googleId = "G-XV58K6R2PX"
+
         return (
             <>
-                <GoogleAnalytics gaId="G-XV58K6R2PX" />
+                <Script
+                    strategy='lazyOnload'
+                    src={`https://www.googletagmanager.com/gtag/js?id=${googleId}`}
+                />
+
+                <Script id='' strategy='lazyOnload'>
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', '${googleId}');
+                    `}
+                </Script>
                 <link rel="icon" type="image/png" href="/logo.png" />
 
                 <meta httpEquiv="Content-Language" content="en" />
