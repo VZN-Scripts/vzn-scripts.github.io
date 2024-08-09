@@ -1,0 +1,180 @@
+# Config
+
+### LOCALES
+
+-   This script is using ox_lib locales. You can edit values in `locales/*.json`. If you add your language, you can send it us in our discord and we will add it to our script
+
+### LOGS
+
+To Configure logs go to `config_server.lua` and put here your discord webhook
+
+-   if you want to edit logs logic go to `server/editable/functions.lua` on function called `SendLog`
+
+```lua filename="config.lua"
+-- your wehbhook where logs will be sent
+---@type string
+SConfig.LogWebhook = "your_webhook_here"
+```
+
+### FRAMEWORK NAMES
+
+```lua filename="config.lua"
+--- If you have custom name of exports / resourceName, change it here to script can works correctly.
+--- If you wanna connect your custom framework look at bridge/custom/*.lua.
+--- If you wanna edit your framework functions etc look at bridge/your_framework/*.lua
+---@type table<string, {resourceName: string, export: string}>
+Config.Framework = {
+    ESX = {
+        resourceName = "es_extended",
+        export = "getSharedObject",
+    },
+    QB = {
+        resourceName = "qb-core",
+        export = "GetCoreObject",
+    },
+}
+```
+
+### JOB NAME
+
+if you want to change job name required to do job change it in `config.lua`
+
+```lua filename="config.lua"
+--- job name that player needs have to use job (remember to add job to db for ESX or to jobs.lua for QBCore)
+---@type string
+Config.JobName = "cleaner"
+```
+
+### SALARY METHOD
+
+-   If player should earn money in cash, set this field to `cash` (ESX too, not money)
+-   If player should earn money in bank account, set this field to `bank`
+
+```lua filename="config.lua"
+--- in which method player will be getting salary for job
+---@type 'cash' | 'bank'
+Config.SalaryMethod = "cash"
+```
+
+### START JOB COORDS
+
+-   pedModel: `string` | `number` model / hash of ped
+-   pedCoords: `vector3` location where ped is and target action to start job
+-   pedHeading: `number` heading of ped
+-   vehiclesSpawnPoints `vector4[]` points where vehicles will be spawn (if first is busy, vehicle will be spawned on second etc)
+
+```lua filename="config.lua"
+Config.StartJob = {
+    pedModel = "cs_bankman",
+    pedCoords = vec3(1231.49, -1083.04, 38.51),
+    pedHeading = 127.5,
+    vehiclesSpawnPoints = {
+        vec4(1217.81, -1070.94, 39.32, 124.72),
+        vec4(1213.85, -1067.93, 39.65, 119.05),
+        vec4(1210.49, -1064.28, 40.01, 124.72),
+        vec4(1206.93, -1060.80, 40.43, 119.05),
+        vec4(1202.59, -1057.70, 40.90, 124.72),
+        vec4(1197.27, -1055.20, 41.39, 121.88),
+    },
+}
+```
+
+### BONUS FOR WORK WITH FRIEND
+
+-   money: `number` multiplier how much player earn more money for work with friend
+-   xp: `number` multiplier how much player earn more xp for work with friend
+-   you can edit bonus logic in `server/editable/functions.lua` in function called `WorkWithFriendBonus`
+
+```lua filename="config.lua"
+--- multipliers of amounts if player work with friend
+Config.WorkWithFriendBonus = {
+    money = 1.15,
+    xp = 1.10,
+}
+```
+
+### CLOTHES
+
+-   enabled: `boolean` you can disable changing clothes here
+-   male: `table` clothes for male
+-   female: `table` clothes for female
+
+```lua filename="config.lua"
+Config.Clothes = {
+    enabled = true, -- if you set it to false, player clothes won't change in job,
+    male = {
+        ['arms'] = 0,
+        ['tshirt_1'] = 15,
+        ['tshirt_2'] = 0,
+        ['torso_1'] = 86,
+        ['torso_2'] = 0,
+        ['pants_1'] = 10,
+        ['pants_2'] = 2,
+    },
+    female = {
+        ['arms'] = 0,
+        ['tshirt_1'] = 15,
+        ['tshirt_2'] = 0,
+        ['torso_1'] = 86,
+        ['torso_2'] = 0,
+        ['pants_1'] = 10,
+        ['pants_2'] = 2,
+    },
+}
+```
+
+### PAVEMENT CLEANING
+
+-   minXP: `number` minimum xp player need to work in this type
+-   type: `"pavementCleaning"` dont change
+-   data: `table`
+    -   addXP: `number` how much xp player will earn after complete job
+    -   vehicle: `number` | `string` vehicle model
+    -   locations: `table[]`
+        -   money: `number` payment for player if complete this location
+        -   gpsDestination: `vector3`
+        -   points: `table[]`
+            -   coords: `vector3`
+            -   cleaningDuration: `number` time of progressbar cleaning this points
+            -   props: `table[]` you can add multiple props in one point to make stash of trash etc
+                -   offset: `vector3` offset from point coords of this prop
+                -   heading: `number` heading of prop
+                -   model: `string` | `number` model of prop
+
+### APARTMENT CLEANING
+
+-   minXP: `number` minimum xp player need to work in this type
+-   type: `"apartmentCleaning"` dont change
+-   data: `table`
+    -   addXP: `number` how much xp player will earn after complete job
+    -   vehicle: `number` | `string` vehicle model
+    -   locations: `table[]`
+        -   money: `number` payment for player if complete this location
+        -   gpsDestination: `vector3`
+        -   insideCoords = `vector3` coords where player will be teleported,
+        -   points: `table[]`
+            -   coords: `vector3`
+            -   cleaningDuration: `number` time of progressbar cleaning this points
+            -   props: `table[]` you can add multiple props in one point to make stash of trash etc
+                -   offset: `vector3` offset from point coords of this prop
+                -   rotation: `vector3` rotation of prop
+                -   heading: `number` heading of prop
+                -   model: `string` | `number` model of prop
+
+### ROAD CLEANING
+
+-   minXP: `number` minimum xp player need to work in this type
+-   type: `"roadCleaning"` dont change
+-   data: `table`
+    -   addXP: `number` how much xp player will earn after complete job
+    -   vehicle: `number` | `string` vehicle model
+    -   locations: `table[]`
+        -   money: `number` payment for player if complete this location
+        -   gpsDestination: `vector3`
+        -   speedLimitWhileCleaning: `number` in meters/second (if you want to disable it, set it to -1)
+        -   points: `table[]`
+            -   coords: `vector3`
+
+### OTHER
+
+If you want to edit other logic of script, all open sourced functions is in `client/editable/**`, `server/editable/**` and `bridge/**/*`

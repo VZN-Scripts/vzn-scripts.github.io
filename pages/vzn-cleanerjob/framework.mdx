@@ -1,0 +1,124 @@
+import { Callout } from "nextra/components";
+
+# FRAMEWORK
+
+### AUTO-DETECTION
+
+<Callout type="info" emoji="ℹ️">
+    The framework is auto-detected based on started resource. You can look at it `bridge/**`
+</Callout>
+
+If you wanna edit framework functions go to `bridge/**/*.lua`
+
+### CUSTOM CLIENT
+
+If you wanna edit this functions you can do it. If you want to use custom frameworks, do similar logic in `bridge/custom/client.lua` using your framework functions
+
+```lua filename="bridge/custom/client.lua"
+
+--- getting framework object
+FRAMEWORK = exports['your_framework']['export_name']()
+
+--- load script if player is loaded when script started
+Citizen.CreateThread(function()
+    if FRAMEWORK.IsPlayerLoaded() then
+        OnPlayerLoad()
+    end
+end)
+
+--- load player on load
+RegisterNetEvent("yourFramework:onPlayerLoad", function()
+    OnPlayerLoad()
+end)
+
+--- refresh job blips on playerData job change
+AddEventHandler('yourFramework::onJobChange', function()
+    RefreshJobBlips()
+end)
+
+--- checking if player can work, you can edit it how you want (for example disable job based logic)
+---@return boolean
+function CanWork()
+    return FRAMEWORK.GetPlayerJob() == Config.JobName
+end
+
+--- change clothes logic
+local lastClothes = nil
+function ChangeClothes(work)
+    if not Config.Clothes.enabled then return end
+
+    if work then
+        local gender = FRAMEWORK.GetPlayerGender() -- male or female
+        local clothes = work and Config.Clothes[gender] or lastClothes
+        if not clothes then return end
+        lastClothes = FRAMEWORK.GetPlayerSkin()
+        TriggerEvent('yourFramework:changeClothes', clothes)
+    else
+        TriggerEvent('yourFramework:changeClothes', lastClothes)
+        lastClothes = nil
+    end
+end
+```
+
+### CUSTOM SERVER
+
+If you wanna edit this functions you can do it. If you want to use custom frameworks, do similar logic in `bridge/custom/server.lua` using your framework functions
+
+```lua filename="bridge/custom/server.lua"
+
+--- getting framework object
+FRAMEWORK = exports['your_framework']['export_name']()
+
+---@class PlayerJob
+---@field name string unique name of the job
+---@field label string
+
+---@class Player
+---@field source number id of player
+---@field identifier string unique identifier of player to using it in db
+---@field job PlayerJob
+---@field addMoney fun(amount: number) adding money after job complete
+
+--- returning Player object from id
+---@param playerId number
+---@return Player | nil
+function GetPlayerFromId(playerId)
+    local frameworkPlayer = FRAMEWORK.GetPlayer(playerId)
+    if not frameworkPlayer then return end
+
+    ---@type Player
+    local player = {
+        source = playerId,
+        identifier = frameworkPlayer.getCharacterUniqueId(),
+        job = {
+            name = frameworkPlayer.job.name,
+            label = frameworkPlayer.job.label,
+        },
+        addMoney = function(amount)
+            local method = Config.SalaryMethod
+            if method == "cash" then
+                ---@diagnostic disable-next-line
+                method = "money"
+            end
+
+            frameworkPlayer.addMoney(method, amount)
+        end,
+    }
+
+    return player
+end
+
+--- checking if player can work, you can edit it how you want (for example disable job based logic)
+---@param player Player
+---@return boolean
+function CanPlayerWork(player)
+    return player.job.name == Config.JobName
+end
+
+MySQL.ready(function()
+    if not FRAMEWORK.IsJobExisting(Config.JobName) then
+        lib.print.error(string.format("`%s` job doesnt exists!! Add this job in your framework", Config.JobName))
+    end
+end)
+
+```
