@@ -32,7 +32,7 @@ RegisterNetEvent("yourFramework:onPlayerLoad", function()
 end)
 
 --- refresh job blips on playerData job change
-AddEventHandler('yourFramework::onJobChange', function()
+AddEventHandler('yourFramework:onJobChange', function()
     RefreshJobBlips()
 end)
 
@@ -75,6 +75,7 @@ FRAMEWORK = exports['your_framework']['export_name']()
 
 ---@class Player
 ---@field source number id of player
+---@field playerName string character name
 ---@field identifier string unique identifier of player to using it in db
 ---@field job PlayerJob
 ---@field addMoney fun(amount: number) adding money after job complete
@@ -103,6 +104,7 @@ function GetPlayerFromId(playerId)
 
             frameworkPlayer.addMoney(method, amount)
         end,
+        playerName = frameworkPlayer.firstname .. ' ' .. frameworkPlayer.lastname
     }
 
     return player
@@ -113,6 +115,32 @@ end
 ---@return boolean
 function CanPlayerWork(player)
     return player.job.name == Config.JobName
+end
+
+---@class RankingPlayer
+---@field name string name of player
+---@field xp number
+---@field level number
+
+--- getting top5 players
+---@return RankingPlayer[] --max 5 elements
+function GetRanking()
+    local ranking = {}
+    local result = GetRankingQuery()
+    for i = 1, #result, 1 do
+        local name = MySQL.scalar.await(
+            'SELECT CONCAT(firstname, " ", lastname) FROM characters WHERE unique_id = ?',
+            { result[i].identifier }
+        )
+        local level = GetJobTypeForXP(result[i].xp)
+        table.insert(ranking, {
+            name = name,
+            level = level,
+            xp = result[i].xp
+        })
+    end
+
+    return ranking
 end
 
 MySQL.ready(function()
