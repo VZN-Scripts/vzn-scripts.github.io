@@ -7,13 +7,13 @@ import Script from "next/script";
 const config: DocsThemeConfig = {
     head: () => {
         const { asPath } = useRouter();
-        const { frontMatter } = useConfig();
+        const { frontMatter, title } = useConfig();
         const defaultDescription = "Documentation for VZN Scripts assets";
         const url = `https://docs.vzn-scripts.com/${asPath}`;
 
         const googleId = "G-XV58K6R2PX"
 
-        const fullTitle = "VZN Scripts Docs"
+        const fullTitle = `${title} | VZN Scripts Docs`
 
 
         return (
