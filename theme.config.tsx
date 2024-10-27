@@ -7,14 +7,18 @@ import Script from "next/script";
 const config: DocsThemeConfig = {
     head: () => {
         const { asPath } = useRouter();
-        const { frontMatter, title } = useConfig();
+        const { frontMatter } = useConfig();
         const defaultDescription = "Documentation for VZN Scripts assets";
         const url = `https://docs.vzn-scripts.com/${asPath}`;
 
         const googleId = "G-XV58K6R2PX"
 
+        const fullTitle = "VZN Scripts Docs"
+
+
         return (
             <>
+                <title>{fullTitle}</title>
                 <Script
                     strategy='lazyOnload'
                     src={`https://www.googletagmanager.com/gtag/js?id=${googleId}`}
@@ -37,7 +41,7 @@ const config: DocsThemeConfig = {
                 />
                 <meta
                     name="og:title"
-                    content={title || "VZN Scripts Documentation"}
+                    content={fullTitle || "VZN Scripts Documentation"}
                 />
                 <meta name="og:url" content={url} />
                 <meta
@@ -78,23 +82,6 @@ const config: DocsThemeConfig = {
             VZN Scripts
         </div>
     ),
-    useNextSeoProps: () => {
-        // credits for overextended for this function
-        const { asPath } = useRouter();
-        const arr = asPath.replace(/[-_]/g, " ").split("/");
-        const category = (arr[1][0] !== "#" && arr[1]) || "VZN Scripts";
-        const rawTitle = arr[arr.length - 1];
-        const title =
-            /[a-z]/.test(rawTitle) && /[A-Z]/.test(rawTitle) ? rawTitle : "%s";
-
-        return {
-            titleTemplate: `${title} | ${
-                rawTitle === category
-                    ? "Documentation"
-                    : category.replace(/(^\w|\s\w)/g, (m) => m.toUpperCase())
-            }`,
-        };
-    },
     project: {
         link: "https://github.com/VZN-Scripts",
     },
@@ -104,10 +91,12 @@ const config: DocsThemeConfig = {
     docsRepositoryBase:
         "https://github.com/VZN-Scripts/vzn-scripts.github.io/blob/main",
     footer: {
-        text: "VZN Scripts",
+        content: <>VZN-Scripts</>,
     },
-    primaryHue: 203,
-    primarySaturation: 100,
+    color: {
+        hue: 203,
+        saturation: 100
+    },
     toc: {
         backToTop: true,
     },
