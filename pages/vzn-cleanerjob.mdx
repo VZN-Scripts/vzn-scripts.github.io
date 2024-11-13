@@ -1,4 +1,5 @@
 import { Steps } from "nextra/components";
+import { Tabs } from "nextra/components";
 
 # VZN-CLEANERJOB
 
@@ -28,6 +29,39 @@ Advanced cleanerjob for your FiveM server
 ### Put vzn-cleanerjob in your server resources folder
 
 ### Add `ensure vzn-cleanerjob` to your server.cfg
+
+### Add `cleaner` job to your framework
+
+<Tabs items={["ESX", "QB"]}>
+    <Tabs.Tab>
+        Run this SQL query in your database 
+        
+        ```sql copy 
+        INSERT INTO `jobs` (`name`, `label`, `whitelisted`) VALUES 
+            ('cleaner', 'Cleaner', 0);
+
+        INSERT INTO `job_grades` (`job_name`, `grade`, `name`, `label`, `salary`, `skin_male`, `skin_female`) VALUES
+            ('cleaner', 0, 'employee', 'Employee', 500, '{}', '{}');
+        ```
+    </Tabs.Tab>
+    <Tabs.Tab>
+        Add this field to `qb-core/shared/jobs.lua` between `QBShared.Jobs = {` (found at the top of the file) and `}` (found at the bottom of the file):
+
+        ```lua copy
+        cleaner = {
+            label = 'Cleaner',
+            defaultDuty = true,
+            offDutyPay = false,
+            grades = {
+                ['0'] = { name = 'Employee', payment = 50 }
+            }
+        },
+
+        ```
+
+</Tabs.Tab>
+
+</Tabs>
 
 </Steps>
 
