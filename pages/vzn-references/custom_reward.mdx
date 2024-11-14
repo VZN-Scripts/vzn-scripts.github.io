@@ -1,0 +1,50 @@
+import { Steps } from "nextra/components";
+
+# CUSTOM REWARD
+
+Adding other rewards than items could be very wanted function. Of course our script is ready to do that
+
+### CONFIG
+
+<Steps>
+### Add in config reward with other type than item, for example car
+```lua copy
+Config.Rewards = {
+    -- ...
+    [10] = { -- reward for 10 invites
+        name = 'zentorno',
+        count = 1,
+        type = 'car',
+        -- !!! VERY IMPORTANT THAT CUSTOM REWARD MUST HAS THESE FIELDS BELOW !!!
+        label = 'Zentorno',
+        image = 'https://github.com/MericcaN41/gta5carimages/blob/main/images/zentorno.png?raw=true'
+    },
+    -- ...
+}
+```
+
+### Go to `bridge/your_framework/server.lua` to function called `AddReward` and implement your giving this type of reward logic
+
+```lua copy filename="bridge/*/server.lua"
+--- add reward for player
+---@param player Player
+---@param reward ConfigReward
+function AddReward(player, reward)
+    if reward.type == 'item' then
+        local esxPlayer = ESX.GetPlayerFromId(player.source)
+        esxPlayer.addInventoryItem(reward.name, reward.count)
+
+    -- IMPLEMENT OUR TYPE FROM CONFIG ABOVE
+    elseif reward.type == 'car' then
+
+        -- for example our function to giving car
+        GiveCarForPlayer(player.identifier, reward.name)
+
+    else
+        lib.print.warn('This type of reward is not implemented. Do it in vzn-references/bridge/esx/server.lua')
+        --- implement it yourself
+    end
+end
+```
+
+</Steps>

@@ -1,0 +1,33 @@
+import { Callout } from "nextra/components";
+
+# FRAMEWORK
+
+### AUTO-DETECTION
+
+<Callout type="info" emoji="ℹ️">
+    The framework is auto-detected based on started resource. You can look at it `bridge/**`
+</Callout>
+
+If you wanna edit framework functions go to `bridge/**/*.lua`
+
+### CUSTOM FRAMEWORK
+
+If you wanna make compatibility our script with your framework go to `bridge/custom/*.lua` and implement these functions like in examples
+
+### OPEN ENTER CODE MENU
+
+Default the enter code menu should open on create new character on your server. But implementation of this sometimes could be insufficient. If you wanna to enter code menu in other moment of server, or for example using command, go to `bridge/*/client.lua` and remove implementation of executing `enterCode` export.
+
+To execute open enter menu (for example if your server has another creating character logic) use export below
+
+```lua copy
+exports['vzn-references']:enterCode()
+```
+
+### INVENTORY
+
+The script has implemented default ESX/QB inventory and ox_inventory. If you wanna to implement other inventory, do it in these functions
+
+-   `client/editable/editable_functions.lua` : `GetImagePath()` - function returning path to items images (png files)
+-   `bridge/*/server.lua` : `GetItemLabel(itemName)` - function returning label of item if exists
+-   `bridge/*/server.lua` : `AddReward(player, reward)` - function giving reward to player, adding items logic etc

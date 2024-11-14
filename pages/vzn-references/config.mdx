@@ -1,0 +1,135 @@
+# Config
+
+### LOCALES
+
+-   You can translate this script in every language, which you want in `locales/*.json*`. If you add your language, you can send it us in our discord and we will add it to our script
+-   To configure which json file will be loaded as locales go to `config.lua` and set field `Config.Locales` to name of your file
+
+### LOGS
+
+To configure logs go to `s_config.lua` and put here your discord webhook
+
+-   if you want to edit logs logic go to `server/editable/editable_logs.lua`
+
+```lua filename="s_config.lua"
+---@type string
+SConfig.Webhook = 'your_webhook_here'
+```
+
+### FRAMEWORK NAMES
+
+```lua filename="config.lua"
+--- If you have custom name of exports / resourceName, change it here to script can works correctly.
+--- If you wanna connect your custom framework look at bridge/custom/*.lua.
+--- If you wanna edit your framework functions etc look at bridge/your_framework/*.lua
+---@type table<string, {resourceName: string, export: string}>
+Config.Framework = {
+    ESX = {
+        resourceName = "es_extended",
+        export = "getSharedObject",
+    },
+    QB = {
+        resourceName = "qb-core",
+        export = "GetCoreObject",
+    },
+}
+```
+
+### COMMAND
+
+To configure command name, which will opening rewards for invitations menu you can do it in `config.lua` in field called `Config.ReferencesCommand`
+
+```lua filename="config.lua"
+---@type string
+Config.ReferencesCommand = 'references'
+```
+
+### REWARDS PER INVITE
+
+The most important thing in this config is rewards. In this table, key is how many invites player need to claim this reward. If you wanna to give other rewards than items you can set custom type of them and implement giving them in `bridge/your_framework/server.lua` in function called `AddReward`
+
+```lua filename="config.lua"
+---@class ItemReward
+---@field name string
+---@field count number
+---@field type 'item'
+
+---@class OtherReward
+---@field name string
+---@field count number
+---@field type string
+---@field label string
+---@field image string
+
+---@alias ConfigReward ItemReward | OtherReward
+
+
+---@type table<number, ConfigReward> key is invited count, value is reward data
+Config.Rewards = {
+    [1] = {
+        name = 'burger',
+        count = 3,
+        type = 'item'
+    },
+    [2] = {
+        name = 'money',
+        count = 500,
+        type = 'item'
+    },
+    [3] = {
+        name = 'burger',
+        count = 5,
+        type = 'item'
+    },
+    [4] = {
+        name = 'burger',
+        count = 5,
+        type = 'item'
+    },
+    [5] = {
+        name = 'ammo-9',
+        count = 20,
+        type = 'item'
+    },
+    [6] = {
+        name = 'burger',
+        count = 5,
+        type = 'item'
+    },
+    [7] = {
+        name = 'burger',
+        count = 5,
+        type = 'item'
+    },
+    [8] = {
+        name = 'WEAPON_PISTOL',
+        count = 1,
+        type = 'item'
+    },
+}
+```
+
+### REWARDS FOR ENTER CODE
+
+To encourage players to enter referral codes, when they enter a friend's code they also get rewards. You can configure these rewards here. Logic is the same as above
+
+```lua filename="config.lua"
+---@type ConfigReward[] 3/4 elements should looks good
+Config.RewardsForEnterCode = {
+    {
+        name = 'burger',
+        count = 5,
+        type = 'item'
+    },
+    {
+        name = 'money',
+        count = 10000,
+        type = 'item'
+    },
+    {
+        name = 'WEAPON_KNIFE',
+        count = 1,
+        type = 'item'
+    }
+}
+```
