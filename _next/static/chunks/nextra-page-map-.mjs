@@ -1,5 +1,6 @@
 import meta from "../../../pages/_meta.ts";
 import vzn_cleanerjob_meta from "../../../pages/vzn-cleanerjob/_meta.ts";
+import vzn_references_meta from "../../../pages/vzn-references/_meta.ts";
 export const pageMap = [{
   data: meta
 }, {
@@ -75,5 +76,35 @@ export const pageMap = [{
   route: "/vzn-notify",
   frontMatter: {
     "sidebarTitle": "Vzn Notify"
+  }
+}, {
+  name: "vzn-references",
+  route: "/vzn-references",
+  children: [{
+    data: vzn_references_meta
+  }, {
+    name: "config",
+    route: "/vzn-references/config",
+    frontMatter: {
+      "sidebarTitle": "Config"
+    }
+  }, {
+    name: "custom_reward",
+    route: "/vzn-references/custom_reward",
+    frontMatter: {
+      "sidebarTitle": "Custom Reward"
+    }
+  }, {
+    name: "framework",
+    route: "/vzn-references/framework",
+    frontMatter: {
+      "sidebarTitle": "Framework"
+    }
+  }]
+}, {
+  name: "vzn-references",
+  route: "/vzn-references",
+  frontMatter: {
+    "sidebarTitle": "Vzn References"
   }
 }];
