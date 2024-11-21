@@ -44,6 +44,15 @@ To configure command name, which will opening rewards for invitations menu you c
 Config.ReferencesCommand = 'references'
 ```
 
+### REQUIRED PLAYTIME
+
+To prevent players, that will be joining on new account, entering friend's code, and again and again, we decided to add required playtime that player must have player on server to be counted as invited. The logic of this system you can see in `server/editable/editable_playtime.lua` (or you can rewrite it to your playtime system). In config you can configure how much **seconds** of playtime is required. To disable this feature set `0`
+
+```lua filename="config.lua"
+---@type number seconds how much player must have played on server to be approved as invited player (set 0 to disable) (to prevent exploiters who create new character every time)
+Config.RequiredPlaytime = 5 * 60 * 60 --// seconds
+```
+
 ### REWARDS PER INVITE
 
 The most important thing in this config is rewards. In this table, key is how many invites player need to claim this reward. If you wanna to give other rewards than items you can set custom type of them and implement giving them in `bridge/your_framework/server.lua` in function called `AddReward`
