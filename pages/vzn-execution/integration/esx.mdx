@@ -1,0 +1,18 @@
+import { Steps } from "nextra/components";
+
+# ESX INTEGRATION
+
+To allow this script deleting player character do steps below!
+
+<Steps>
+### Make sure you are using the multicharacter system in ESX and you have the newest version of `esx_multicharacter`
+### Go to `esx_multicharacter/server/modules/database.lua`
+### Add this lines
+
+```lua
+exports('deleteCharacter', function(source, charid)
+    return Database:DeleteCharacter(source, charid)
+end)
+```
+
+</Steps>

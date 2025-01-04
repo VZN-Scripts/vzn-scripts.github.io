@@ -6,4 +6,5 @@ export default {
     "vzn-notify": "VZN Notify",
     "vzn-cleanerjob": "VZN Cleanerjob",
     "vzn-references": "VZN References",
+    "vzn-execution": "VZN Execution",
 };

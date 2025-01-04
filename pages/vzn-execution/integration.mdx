@@ -1,0 +1,20 @@
+import { Callout } from "nextra/components";
+
+# INTEGRATION
+
+### AUTO-DETECTION
+
+<Callout type="info" emoji="ℹ️">
+    The framework is auto-detected based on started resource. You can look at it
+    `server/editable/editable_character.lua`
+</Callout>
+
+The script will be automatically works on QB-Core
+
+### Custom Multicharacters
+
+If you are using custom multicharacters you will need probably custom integration with them. You can do it in `server/editable/editable_character.lua` in function called `DeleteCharacter`.
+
+### Custom Framework
+
+If you are using custom framework or edited one go to `server/editable/editable_character.lua` to function called `DeleteCharacter` and implement your deleting character logic.

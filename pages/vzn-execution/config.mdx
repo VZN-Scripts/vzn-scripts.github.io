@@ -1,0 +1,60 @@
+# Config
+
+### LOCALES
+
+-   This script is using ox_lib locales. You can edit values in `locales/*.json`. If you add your language, you can send it us in our discord and we will add it to our script.
+
+### LOGS
+
+To Configure logs go to `s_config.lua` and put here your discord webhook
+
+-   if you want to edit logs logic go to `server/editable/editable_logs.lua` on function called `sendLog`
+
+```lua filename="s_config.lua"
+--- your webhook logs
+---@type string
+SConfig.Webhook = 'your_webhook_here'
+```
+
+### INTERACTIONS
+
+-   This script has implemented 2 interactions system.
+    -   Prompt - Default GTA system, the notification in left corner to press `E`
+    -   ox_target - Third-eye targeting system
+-   You can switch beetwen them in `config.lua` in field called `Config.Interaction`
+
+```lua filename="config.lua"
+--- defining which system will be used to interact with locations
+---@type 'ox_target' | 'prompt'
+Config.Interaction = 'ox_target'
+```
+
+### KILL CONFIRMATION
+
+-   Every time when some player wants another player to seat on electric chair, another player would be asked of confirmation to do that. If you wanna to disable it and allows players to force other to be killed you can do it in `config.lua` and set field called `Config.NeedConfirmationToKill` to `false`
+
+```lua filename="config.lua"
+---@type boolean
+Config.NeedConfirmationToKill = true
+```
+
+### LOCATIONS
+
+The script has pre-configured electric chair from [Wuja Death Room](https://wuja-maps.tebex.io/package/6312401). All locations is configurable in `config.lua` in array field called `Config.Locations`. You can add more locations with electric chairs
+
+```lua filename="config.lua"
+---@type Location[]
+Config.Locations = {
+    --// NOTE: That script requires wuja_death_room (PURCHASE: https://wuja-maps.tebex.io/package/6312401)
+    {
+        chair = {
+            coords = vec3(1997.16, -1471.64, 48.19),
+            seatCoords = vec4(1997.16, -1471.64, 47.1330, 326.1991)
+        },
+        enableElectric = {
+            coords = vec3(1999.3041, -1474.8317, 49.0260),
+            animCoords = vec4(1999.6069, -1474.5575, 47.5919, 147.2450)
+        }
+    },
+}
+```
