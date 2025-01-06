@@ -1,5 +1,6 @@
 import meta from "../../../pages/_meta.ts";
 import vzn_cleanerjob_meta from "../../../pages/vzn-cleanerjob/_meta.ts";
+import vzn_death_prison_cell_meta from "../../../pages/vzn-death-prison-cell/_meta.ts";
 import vzn_references_meta from "../../../pages/vzn-references/_meta.ts";
 export const pageMap = [{
   data: meta
@@ -32,6 +33,40 @@ export const pageMap = [{
   route: "/vzn-cleanerjob",
   frontMatter: {
     "sidebarTitle": "Vzn Cleanerjob"
+  }
+}, {
+  name: "vzn-death-prison-cell",
+  route: "/vzn-death-prison-cell",
+  children: [{
+    data: vzn_death_prison_cell_meta
+  }, {
+    name: "config",
+    route: "/vzn-death-prison-cell/config",
+    frontMatter: {
+      "sidebarTitle": "Config"
+    }
+  }, {
+    name: "integration",
+    route: "/vzn-death-prison-cell/integration",
+    children: [{
+      name: "esx",
+      route: "/vzn-death-prison-cell/integration/esx",
+      frontMatter: {
+        "sidebarTitle": "Esx"
+      }
+    }]
+  }, {
+    name: "integration",
+    route: "/vzn-death-prison-cell/integration",
+    frontMatter: {
+      "sidebarTitle": "Integration"
+    }
+  }]
+}, {
+  name: "vzn-death-prison-cell",
+  route: "/vzn-death-prison-cell",
+  frontMatter: {
+    "sidebarTitle": "Vzn Death Prison Cell"
   }
 }, {
   name: "vzn-notify",
