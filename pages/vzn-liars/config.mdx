@@ -1,0 +1,131 @@
+# Config
+
+### LOCALES
+
+-   This script is using ox_lib locales. You can edit values in `locales/*.json`. If you add your language, you can send it us in our discord and we will add it to our script
+
+### INTERACTION
+
+-   This script has implemented 2 interactions system.
+    -   Prompt - Default GTA system, the notification in left corner to press `E`
+    -   ox_target - Third-eye targeting system
+-   You can switch beetwen them in `config/config.lua` in field called `Config.Interaction`
+
+```lua filename="config/config.lua"
+--- defining in which way user can interact with game table
+---@type 'ox_target' | 'prompt'
+Config.Interaction = 'ox_target'
+```
+
+### REAL DEAD
+
+-   When player loose game in russion roulette, his ped playing dead animation. If you want to kill player ped after game end. Set the `Config.RealDead` to `true` in `config/config.lua`. The implementation of kill player function is in `client/editable/editable_functions.lua` in function called `OnExitGame()`
+
+```lua filename="config/config.lua"
+--- if true after end game dead players peds will be killed
+---@type boolean
+Config.RealDead = true
+```
+
+### WEAPON PROP
+
+-   You can change the revolver prop if you wanna to use custom prop or default model is blacklisted on your server. You can do it in `config/config.lua` in field called `Config.WeaponProp`.
+
+```lua filename="config/config.lua"
+--- model of prop that will be spawned in shot animation
+---@type number | string
+Config.WeaponProp = "w_pi_wep1_gun"
+```
+
+### LEAVE GAME COMMAND
+
+-   If player wants to leave game during them, he needs to type command defined in field `Config.LeaveGameCommand` in `config/config.lua`.
+
+```lua filename="config/config.lua"
+--- user typing this command can leave from table
+---@type string
+Config.LeaveGameCommand = 'leaveliars'
+```
+
+### MAX TIME FOR PLAYER
+
+-   Player has limited time to play action during game. If player doesn't do anything, he will call previous player as liar. You can set how much miliseconds player will have to decide what he wants to play in `config/config.lua` in field called `Config.MaxTimeForPlayer`
+
+```lua filename="config/config.lua"
+---@type number
+Config.MaxTimeForPlayer = 30 * 1000 --// 30 seconds (30 000 msec)
+```
+
+### CONTROLS
+
+-   To edit controls which are used to control game, go to `config/config.lua` to field called `Config.Controls` and edit the control index ([Controls](https://docs.fivem.net/docs/game-references/controls/)) and the label of the key. Dont touch the keys of this table.
+
+```lua filename="config/config.lua"
+--- controls will be used to play game
+---@type table<string, {control: number, label: string}>
+Config.Controls = {
+    READY = {
+        control = 22,
+        label = "SPACE"
+    },
+    CALL_LIAR = {
+        control = 182,
+        label = "L"
+    },
+    CARD_LEFT = {
+        control = 34,
+        label = "A"
+    },
+    CARD_RIGHT = {
+        control = 35,
+        label = "D"
+    },
+    CARD_SELECT = {
+        control = 22,
+        label = "SPACE"
+    },
+    CARD_PUT = {
+        control = 75,
+        label = "F"
+    }
+}
+```
+
+### TABLES POSITION
+
+-   In `config/config.lua` in field called `Config.Tables` you can define, where tables to play will be placed. Additionally you can change the distance from which tables will be loaded.
+
+```lua filename="config/config.lua"
+---@class Table
+---@field position vector4
+---@field loadDistance number
+
+---@type Table[]
+Config.Tables = {
+    {
+        position = vec4(-560.3813, 300.1872, 83.1044, 355.6702),
+        loadDistance = 40.0
+    },
+    {
+        position = vec4(-555.1752, 302.8555, 83.2291, 25.5667),
+        loadDistance = 40.0
+    },
+    {
+        position = vec4(-561.3179, 286.7403, 85.3764, 188.7191),
+        loadDistance = 40.0
+    },
+}
+
+```
+
+### INFOS
+
+-   During the game, on the bottom of the screen player can see reminders that changes every few seconds. In `config/config.lua` in field called `Config.Infos` you can set messages that will be shown here.
+
+```lua filename="config/config.lua"
+---@type string[]
+Config.Infos = {
+    "You can leave the game by typing /" .. Config.LeaveGameCommand .. " on chat.",
+    "Remember, the Joker is your wildcard. It can be anything you need it to be.",
+}
+```

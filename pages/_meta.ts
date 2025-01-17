@@ -7,4 +7,5 @@ export default {
     "vzn-cleanerjob": "VZN Cleanerjob",
     "vzn-references": "VZN References",
     "vzn-death-prison-cell": "VZN Death Prison Cell",
+    "vzn-liars": "VZN Liars",
 };
