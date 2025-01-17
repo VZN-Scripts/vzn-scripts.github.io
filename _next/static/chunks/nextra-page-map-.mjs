@@ -1,6 +1,7 @@
 import meta from "../../../pages/_meta.ts";
 import vzn_cleanerjob_meta from "../../../pages/vzn-cleanerjob/_meta.ts";
 import vzn_death_prison_cell_meta from "../../../pages/vzn-death-prison-cell/_meta.ts";
+import vzn_liars_meta from "../../../pages/vzn-liars/_meta.ts";
 import vzn_references_meta from "../../../pages/vzn-references/_meta.ts";
 export const pageMap = [{
   data: meta
@@ -67,6 +68,24 @@ export const pageMap = [{
   route: "/vzn-death-prison-cell",
   frontMatter: {
     "sidebarTitle": "Vzn Death Prison Cell"
+  }
+}, {
+  name: "vzn-liars",
+  route: "/vzn-liars",
+  children: [{
+    data: vzn_liars_meta
+  }, {
+    name: "config",
+    route: "/vzn-liars/config",
+    frontMatter: {
+      "sidebarTitle": "Config"
+    }
+  }]
+}, {
+  name: "vzn-liars",
+  route: "/vzn-liars",
+  frontMatter: {
+    "sidebarTitle": "Vzn Liars"
   }
 }, {
   name: "vzn-notify",
