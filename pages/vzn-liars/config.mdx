@@ -93,25 +93,29 @@ Config.Controls = {
 
 ### TABLES POSITION
 
--   In `config/config.lua` in field called `Config.Tables` you can define, where tables to play will be placed. Additionally you can change the distance from which tables will be loaded.
+-   In `config/config.lua` in field called `Config.Tables` you can define, where tables to play will be placed. Additionally you can change the distance from which tables will be loaded and enable/disable blip of table on map.
 
 ```lua filename="config/config.lua"
 ---@class Table
 ---@field position vector4
+---@field showBlip? boolean
 ---@field loadDistance number
 
 ---@type Table[]
 Config.Tables = {
     {
         position = vec4(-560.3813, 300.1872, 83.1044, 355.6702),
+        showBlip = false,
         loadDistance = 40.0
     },
     {
         position = vec4(-555.1752, 302.8555, 83.2291, 25.5667),
+        showBlip = false,
         loadDistance = 40.0
     },
     {
         position = vec4(-561.3179, 286.7403, 85.3764, 188.7191),
+        showBlip = true,
         loadDistance = 40.0
     },
 }
