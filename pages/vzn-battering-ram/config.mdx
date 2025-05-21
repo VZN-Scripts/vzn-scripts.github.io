@@ -1,0 +1,62 @@
+# Config
+
+### LOCALES
+
+-   This script is using ox_lib locales. You can edit values in `locales/*.json`. If you add your language, you can send it us in our discord and we will add it to our script.
+
+### INTERACTIONS
+
+-   This script has implemented 2 interactiopns system
+    -   TextUI - From ox_lib
+    -   ox_target - Third-eye targeting system
+-   You can switch between them in `config.lua` in field called `Config.EnableTarget`
+
+```lua filename="config.lua"
+--- if true, the script will use ox_target
+---@type boolean
+Config.EnableTarget = true
+```
+
+### USAGE
+
+-   This script has 2 posibilities to use battering ram
+    -   item use in your inventory system
+    -   command
+-   You can switch between them in `config.lua` in field called `Config.Item.required`
+
+```lua filename="config.lua"
+Config.Item = {
+    --- if true, script will use item, else command
+    ---@type boolean
+    required = true,
+
+    -- remember to add this item into your inventory system (esx: items in sql, qb-core: qb-core/shared/items.lua, ox: ox_inventory/data/items.lua)
+    ---@type string
+    itemName = 'battering_ram',
+
+    ---@type string
+    command = 'battering_ram' --!! works only if item required is FALSE !!
+}
+```
+
+### ACCESS
+
+-   Player need access to use battering ram. Defaultly is job based access system, but you can change your implementation in `server/editable/editable_functions.lua` in function called `CanPlayerUseBatteringRam`.
+-   If you set `Config.Access.jobs.enabled` to false, everyone can use battering ram
+-   To set specific job and grades look at `Config.Access.jobs.allowed`
+
+```lua filename="config.lua"
+Config.Access = {
+    ---@type table
+    jobs = {
+        ---@type boolean
+        enabled = true,
+
+        ---@type table<string, number> jobName and grade
+        allowed = {
+            ['police'] = 0,
+            ['sheriff'] = 0,
+        }
+    }
+}
+```

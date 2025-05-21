@@ -8,4 +8,5 @@ export default {
     "vzn-references": "VZN References",
     "vzn-death-prison-cell": "VZN Death Prison Cell",
     "vzn-liars": "VZN Liars",
+    "vzn-battering-ram": "VZN Battering Ram",
 };
