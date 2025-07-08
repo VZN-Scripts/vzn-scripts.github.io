@@ -1,4 +1,5 @@
 import meta from "../../../pages/_meta.ts";
+import vzn_battering_ram_meta from "../../../pages/vzn-battering-ram/_meta.ts";
 import vzn_cleanerjob_meta from "../../../pages/vzn-cleanerjob/_meta.ts";
 import vzn_death_prison_cell_meta from "../../../pages/vzn-death-prison-cell/_meta.ts";
 import vzn_liars_meta from "../../../pages/vzn-liars/_meta.ts";
@@ -10,6 +11,36 @@ export const pageMap = [{
   route: "/",
   frontMatter: {
     "sidebarTitle": "Index"
+  }
+}, {
+  name: "vzn-battering-ram",
+  route: "/vzn-battering-ram",
+  children: [{
+    data: vzn_battering_ram_meta
+  }, {
+    name: "config",
+    route: "/vzn-battering-ram/config",
+    frontMatter: {
+      "sidebarTitle": "Config"
+    }
+  }, {
+    name: "doorlock",
+    route: "/vzn-battering-ram/doorlock",
+    frontMatter: {
+      "sidebarTitle": "Doorlock"
+    }
+  }, {
+    name: "framework",
+    route: "/vzn-battering-ram/framework",
+    frontMatter: {
+      "sidebarTitle": "Framework"
+    }
+  }]
+}, {
+  name: "vzn-battering-ram",
+  route: "/vzn-battering-ram",
+  frontMatter: {
+    "sidebarTitle": "Vzn Battering Ram"
   }
 }, {
   name: "vzn-cleanerjob",
